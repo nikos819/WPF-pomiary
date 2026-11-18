@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("pomiary")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e3600dabde4530ff6fdca76b16c58bd8dc3bb050")]
 [assembly: System.Reflection.AssemblyProductAttribute("pomiary")]
 [assembly: System.Reflection.AssemblyTitleAttribute("pomiary")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -264,8 +264,7 @@ namespace StacjePogodowe
                     using (StreamWriter sw =
                         new StreamWriter(okno.FileName))
                     {
-                        sw.WriteLine(
-                            "Stacja;Data;Temperatura;Wilgotnosc;Cisnienie");
+                        
 
                         foreach (Pomiar p in pomiary)
                         {
