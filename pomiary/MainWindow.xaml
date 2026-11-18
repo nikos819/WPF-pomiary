@@ -1,0 +1,226 @@
+﻿<Window x:Class="StacjePogodowe.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Stacje pogodowe"
+        Height="720"
+        Width="1100"
+        MinHeight="600"
+        MinWidth="850"
+        WindowStartupLocation="CenterScreen"
+        Background="#F1F5F9">
+
+    <Grid Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- NAGLOWEK -->
+
+        <StackPanel Grid.Row="0" Margin="0,0,0,15">
+
+            <TextBlock Text="STACJE POGODOWE"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Foreground="#1E293B"/>
+
+            <TextBlock Text="System zarzadzania pomiarami pogodowymi"
+                       FontSize="14"
+                       Foreground="#64748B"/>
+
+        </StackPanel>
+
+        <!-- PRZYCISKI -->
+
+        <Border Grid.Row="1"
+                Background="White"
+                CornerRadius="8"
+                Padding="12"
+                Margin="0,0,0,15">
+
+            <WrapPanel VerticalAlignment="Center">
+
+                <Button Content="Wczytaj dane"
+                        Width="120"
+                        Height="35"
+                        Margin="4"
+                        Click="Wczytaj_Click"/>
+
+                <Button Content="Zapisz dane"
+                        Width="120"
+                        Height="35"
+                        Margin="4"
+                        Click="Zapisz_Click"/>
+
+                <TextBlock Text="Filtr stacji:"
+                           VerticalAlignment="Center"
+                           Margin="20,0,8,0"
+                           FontWeight="Bold"/>
+
+                <ComboBox x:Name="FiltrStacji"
+                          Width="180"
+                          Height="30"
+                          VerticalContentAlignment="Center"
+                          SelectionChanged="FiltrStacji_SelectionChanged"/>
+
+                <Button Content="Wszystkie stacje"
+                        Width="130"
+                        Height="35"
+                        Margin="8,4"
+                        Click="Wszystkie_Click"/>
+
+            </WrapPanel>
+
+        </Border>
+
+        <!-- TABELA -->
+
+        <Border Grid.Row="2"
+                Background="White"
+                CornerRadius="8"
+                Padding="10">
+
+            <DataGrid x:Name="TabelaPomiarow"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      IsReadOnly="False"
+                      SelectionMode="Single"
+                      RowHeight="35"
+                      FontSize="13"
+                      HeadersVisibility="Column"
+                      GridLinesVisibility="Horizontal"
+                      CellEditEnding="TabelaPomiarow_CellEditEnding">
+
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="Stacja"
+                                        Binding="{Binding Stacja, UpdateSourceTrigger=PropertyChanged}"
+                                        Width="*"/>
+
+                    <DataGridTextColumn Header="Data"
+                                        Binding="{Binding Data, StringFormat=yyyy-MM-dd}"
+                                        IsReadOnly="True"
+                                        Width="*"/>
+
+                    <DataGridTextColumn Header="Temperatura °C"
+                                        Binding="{Binding Temperatura, UpdateSourceTrigger=PropertyChanged}"
+                                        Width="*"/>
+
+                    <DataGridTextColumn Header="Wilgotnosc %"
+                                        Binding="{Binding Wilgotnosc, UpdateSourceTrigger=PropertyChanged}"
+                                        Width="*"/>
+
+                    <DataGridTextColumn Header="Cisnienie hPa"
+                                        Binding="{Binding Cisnienie, UpdateSourceTrigger=PropertyChanged}"
+                                        Width="*"/>
+
+                </DataGrid.Columns>
+
+                <!-- KOLOROWANIE WIERSZY -->
+
+                <DataGrid.RowStyle>
+
+                    <Style TargetType="DataGridRow">
+
+                        <Setter Property="Background" Value="White"/>
+
+                        <Style.Triggers>
+
+                            <DataTrigger Binding="{Binding CzyZmieniony}" Value="True">
+                                <Setter Property="Background" Value="Yellow"/>
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding CzyMax}" Value="True">
+                                <Setter Property="Background" Value="LightGreen"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding CzyMin}" Value="True">
+                                <Setter Property="Background" Value="LightCoral"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                            </DataTrigger>
+
+                        </Style.Triggers>
+
+                    </Style>
+
+                </DataGrid.RowStyle>
+
+            </DataGrid>
+
+        </Border>
+
+        <!-- DODAWANIE POMIARU -->
+
+        <Border Grid.Row="3"
+                Background="White"
+                CornerRadius="8"
+                Padding="12"
+                Margin="0,15,0,0">
+
+            <StackPanel>
+
+                <TextBlock Text="DODAJ NOWY POMIAR"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Margin="0,0,0,10"/>
+
+                <WrapPanel>
+
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Nazwa stacji"/>
+                        <TextBox x:Name="NowaStacja"
+                                 Width="145"
+                                 Height="28"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Temperatura"/>
+                        <TextBox x:Name="NowaTemperatura"
+                                 Width="100"
+                                 Height="28"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Wilgotnosc"/>
+                        <TextBox x:Name="NowaWilgotnosc"
+                                 Width="100"
+                                 Height="28"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Cisnienie"/>
+                        <TextBox x:Name="NoweCisnienie"
+                                 Width="100"
+                                 Height="28"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5">
+                        <TextBlock Text=" "/>
+                        <Button Content="Dodaj pomiar"
+                                Width="130"
+                                Height="29"
+                                Click="Dodaj_Click"/>
+                    </StackPanel>
+
+                </WrapPanel>
+
+                <TextBlock x:Name="Informacja"
+                           Foreground="#475569"
+                           Margin="5,8,0,0"/>
+
+                <TextBlock Text="Zielony - MAX | Czerwony - MIN"
+                           FontSize="12"
+                           Foreground="#64748B"
+                           Margin="5,4,0,0"/>
+
+            </StackPanel>
+
+        </Border>
+
+    </Grid>
+
+</Window>
